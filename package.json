@@ -1,0 +1,23 @@
+{
+  "name": "financial-chart",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "pinia": "^2.2.6",
+    "radash": "^12.1.1",
+    "vue": "^3.5.13",
+    "vue-i18n": "^11.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "fast-glob": "^3.3.3",
+    "vite": "^6.0.3",
+    "vite-plugin-svg-icons": "^2.0.1"
+  }
+}
