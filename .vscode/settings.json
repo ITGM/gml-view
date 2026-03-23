@@ -1,0 +1,12 @@
+{
+    "i18n-ally.localesPaths": [
+        "src/i18n/locales"
+    ],
+    "i18n-ally.sourceLanguage": "en",
+    "i18n-ally.displayLanguage": "cn",
+    "i18n-ally.annotationInPlace": false,
+    "i18n-ally.enabledParsers": [
+        "js"
+    ],
+    "i18n-ally.keystyle": "nested"
+}
