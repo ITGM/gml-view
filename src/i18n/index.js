@@ -3,8 +3,8 @@ import cn from './locales/cn'
 import en from './locales/en'
 
 const messages = {
-  'cn': cn,
-  'en': en,
+  cn: cn,
+  en: en,
 }
 
 const i18n = createI18n({

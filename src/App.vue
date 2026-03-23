@@ -3,15 +3,15 @@
     <header class="app-header">
       <h1><SvgIcon name="chart" size="24" /> {{ $t('app.header') }}</h1>
       <div class="language-switcher">
-        <button 
-          @click="switchLanguage('cn')" 
+        <button
           :class="{ active: $i18n.locale === 'cn' }"
+          @click="switchLanguage('cn')"
         >
           中文
         </button>
-        <button 
-          @click="switchLanguage('en')" 
+        <button
           :class="{ active: $i18n.locale === 'en' }"
+          @click="switchLanguage('en')"
         >
           English
         </button>
@@ -76,7 +76,7 @@ const switchLanguage = (lang) => {
 }
 
 .language-switcher button.active {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 .app-main {
