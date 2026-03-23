@@ -1,16 +1,16 @@
 import { createI18n } from 'vue-i18n'
-import zhCN from './locales/zh-CN'
-import enUS from './locales/en-US'
+import cn from './locales/cn'
+import en from './locales/en'
 
 const messages = {
-  'zh-CN': zhCN,
-  'en-US': enUS
+  'cn': cn,
+  'en': en,
 }
 
 const i18n = createI18n({
-  locale: 'zh-CN', // 默认语言
-  fallbackLocale: 'zh-CN', // 回退语言
-  messages
+  locale: 'cn', // 默认语言
+  fallbackLocale: 'cn', // 回退语言
+  messages,
 })
 
 export default i18n

@@ -15,23 +15,23 @@ const props = defineProps({
   // 图标名称
   name: {
     type: String,
-    required: true
+    required: true,
   },
   // 图标大小
   size: {
     type: Number,
-    default: 20
+    default: 20,
   },
   // 图标颜色
   color: {
     type: String,
-    default: 'currentColor'
+    default: 'currentColor',
   },
   // 自定义类名
   className: {
     type: String,
-    default: ''
-  }
+    default: '',
+  },
 })
 
 // 计算图标路径

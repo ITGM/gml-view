@@ -1,10 +1,16 @@
 <template>
   <div class="financial-chart">
     <div class="chart-controls">
-      <button @click="switchChartType('kline')" :class="{ active: chartType === 'kline' }">
+      <button
+        :class="{ active: chartType === 'kline' }"
+        @click="switchChartType('kline')"
+      >
         {{ $t('chart.kline') }}
       </button>
-      <button @click="switchChartType('time')" :class="{ active: chartType === 'time' }">
+      <button
+        :class="{ active: chartType === 'time' }"
+        @click="switchChartType('time')"
+      >
         {{ $t('chart.time') }}
       </button>
       <button @click="addMA">
@@ -25,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { FinancialChart, MovingAverage, MACD, RSI } from '@/charts'
 
 const chartCanvas = ref(null)
@@ -34,70 +40,70 @@ let chart = null
 
 // 模拟数据
 const generateMockData = (days = 30) => {
-  const data = [];
-  let price = 100;
-  
+  const data = []
+  let price = 100
+
   for (let i = 0; i < days; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - (days - i));
-    
-    const open = price;
-    const high = price + Math.random() * 5;
-    const low = price - Math.random() * 5;
-    const close = low + Math.random() * (high - low);
-    
+    const date = new Date()
+    date.setDate(date.getDate() - (days - i))
+
+    const open = price
+    const high = price + Math.random() * 5
+    const low = price - Math.random() * 5
+    const close = low + Math.random() * (high - low)
+
     data.push({
       time: date.toISOString().split('T')[0],
       open: parseFloat(open.toFixed(2)),
       high: parseFloat(high.toFixed(2)),
       low: parseFloat(low.toFixed(2)),
-      close: parseFloat(close.toFixed(2))
-    });
-    
-    price = close;
-  }
-  
-  return data;
-};
+      close: parseFloat(close.toFixed(2)),
+    })
 
-const mockData = generateMockData();
+    price = close
+  }
+
+  return data
+}
+
+const mockData = generateMockData()
 
 onMounted(() => {
   // 初始化图表
   chart = new FinancialChart(chartCanvas.value)
     .setData(mockData)
     .setChartType(chartType.value)
-    .render();
-});
+    .render()
+})
 
 // 切换图表类型
 const switchChartType = (type) => {
-  chartType.value = type;
-  chart.setChartType(type).render();
-};
+  chartType.value = type
+  chart.setChartType(type).render()
+}
 
 // 添加均线
 const addMA = () => {
-  const ma = new MovingAverage(20, '#FF0000');
-  chart.addIndicator(ma).render();
-};
+  const ma = new MovingAverage(20, '#FF0000')
+  chart.addIndicator(ma).render()
+}
 
 // 添加 MACD
 const addMACD = () => {
-  const macd = new MACD();
-  chart.addIndicator(macd).render();
-};
+  const macd = new MACD()
+  chart.addIndicator(macd).render()
+}
 
 // 添加 RSI
 const addRSI = () => {
-  const rsi = new RSI();
-  chart.addIndicator(rsi).render();
-};
+  const rsi = new RSI()
+  chart.addIndicator(rsi).render()
+}
 
 // 清除指标
 const clearIndicators = () => {
-  chart.clearIndicators().render();
-};
+  chart.clearIndicators().render()
+}
 </script>
 
 <style scoped>

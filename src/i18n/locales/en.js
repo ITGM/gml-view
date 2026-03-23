@@ -2,7 +2,7 @@ export default {
   app: {
     title: 'Financial Chart Project',
     header: 'Financial Chart',
-    footer: '© 2026 Financial Chart Project'
+    footer: '© 2026 Financial Chart Project',
   },
   chart: {
     title: 'Chart Area',
@@ -12,14 +12,14 @@ export default {
     indicators: 'Technical Indicators',
     zoom: 'Zoom',
     pan: 'Pan',
-    timeRange: 'Time Range'
+    timeRange: 'Time Range',
   },
   indicators: {
     ma: 'Moving Average',
     macd: 'MACD',
     rsi: 'RSI',
     kdj: 'KDJ',
-    boll: 'Bollinger Bands'
+    boll: 'Bollinger Bands',
   },
   common: {
     loading: 'Loading...',
@@ -28,6 +28,6 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel',
     save: 'Save',
-    reset: 'Reset'
-  }
+    reset: 'Reset',
+  },
 }

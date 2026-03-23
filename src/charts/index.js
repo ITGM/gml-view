@@ -11,5 +11,5 @@ export {
   G_RSI as RSI,
   G_Indicator as Indicator,
   mathUtils,
-  formatterUtils
+  formatterUtils,
 }

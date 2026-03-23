@@ -1,9 +1,21 @@
 <template>
   <div class="app">
     <header class="app-header">
-      <h1>
-        <SvgIcon name="chart" size="24" /> {{ $t('app.header') }}
-      </h1>
+      <h1><SvgIcon name="chart" size="24" /> {{ $t('app.header') }}</h1>
+      <div class="language-switcher">
+        <button 
+          @click="switchLanguage('cn')" 
+          :class="{ active: $i18n.locale === 'cn' }"
+        >
+          中文
+        </button>
+        <button 
+          @click="switchLanguage('en')" 
+          :class="{ active: $i18n.locale === 'en' }"
+        >
+          English
+        </button>
+      </div>
     </header>
     <main class="app-main">
       <FinancialChart />
@@ -15,8 +27,15 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
 import SvgIcon from './components/ui/SvgIcon.vue'
 import FinancialChart from './components/charts/FinancialChart.vue'
+
+const { locale } = useI18n()
+
+const switchLanguage = (lang) => {
+  locale.value = lang
+}
 </script>
 
 <style scoped>
@@ -32,6 +51,32 @@ import FinancialChart from './components/charts/FinancialChart.vue'
   color: white;
   padding: 1rem;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.language-switcher {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.language-switcher button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.language-switcher button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.language-switcher button.active {
+  background-color: #4CAF50;
 }
 
 .app-main {

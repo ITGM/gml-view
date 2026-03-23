@@ -2,7 +2,7 @@ export default {
   app: {
     title: '金融图表项目',
     header: '金融图表',
-    footer: '© 2026 金融图表项目'
+    footer: '© 2026 金融图表项目',
   },
   chart: {
     title: '图表区域',
@@ -12,14 +12,14 @@ export default {
     indicators: '技术指标',
     zoom: '缩放',
     pan: '平移',
-    timeRange: '时间范围'
+    timeRange: '时间范围',
   },
   indicators: {
     ma: '移动平均线',
     macd: 'MACD',
     rsi: 'RSI',
     kdj: 'KDJ',
-    boll: '布林带'
+    boll: '布林带',
   },
   common: {
     loading: '加载中...',
@@ -28,6 +28,6 @@ export default {
     confirm: '确认',
     cancel: '取消',
     save: '保存',
-    reset: '重置'
-  }
+    reset: '重置',
+  },
 }
