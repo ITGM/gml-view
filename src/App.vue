@@ -6,13 +6,7 @@
       </h1>
     </header>
     <main class="app-main">
-      <div class="chart-container">
-        <!-- 图表将在这里渲染 -->
-        <h2>
-          <SvgIcon name="chart" size="20" /> {{ $t('chart.title') }}
-        </h2>
-        <p>{{ $t('chart.description') }}</p>
-      </div>
+      <FinancialChart />
     </main>
     <footer class="app-footer">
       <p>{{ $t('app.footer') }}</p>
@@ -22,6 +16,7 @@
 
 <script setup>
 import SvgIcon from './components/ui/SvgIcon.vue'
+import FinancialChart from './components/charts/FinancialChart.vue'
 </script>
 
 <style scoped>
