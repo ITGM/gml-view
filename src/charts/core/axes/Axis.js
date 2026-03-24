@@ -3,9 +3,16 @@ class G_Axis {
   constructor(canvas, options = {}) {
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
+    this.dpr = window.devicePixelRatio || 1
+    
+    // 获取原始尺寸
+    const originalWidth = canvas.width || parseInt(canvas.style.width) || 800
+    const originalHeight = canvas.height || parseInt(canvas.style.height) || 400
+    
+    // 保存原始尺寸
     this.options = {
-      width: canvas.width,
-      height: canvas.height,
+      width: originalWidth,
+      height: originalHeight,
       padding: {
         top: 0,
         right: 0,
@@ -14,7 +21,21 @@ class G_Axis {
       },
       ...options,
     }
+    
+    // 调整 canvas 以支持高分辨率
+    this.setupHighResolution()
+    
     this.data = []
+  }
+  
+  // 设置高分辨率支持
+  setupHighResolution() {
+    const { width, height } = this.options
+    this.canvas.width = width * this.dpr
+    this.canvas.height = height * this.dpr
+    this.canvas.style.width = `${width}px`
+    this.canvas.style.height = `${height}px`
+    this.ctx.scale(this.dpr, this.dpr)
   }
 
   // 设置数据
