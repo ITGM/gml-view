@@ -20,9 +20,6 @@
     <main class="app-main">
       <FinancialChart />
     </main>
-    <footer class="app-footer">
-      <p>{{ $t('app.footer') }}</p>
-    </footer>
   </div>
 </template>
 

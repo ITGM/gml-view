@@ -47,9 +47,6 @@ class G_FinancialChart {
     // 清空画布
     this.ctx.clearRect(0, 0, this.options.width, this.options.height)
 
-    // 绘制坐标轴
-    this.renderAxis()
-
     // 绘制主图表
     if (this.chartType === 'kline') {
       this.renderKLineChart()
@@ -61,46 +58,6 @@ class G_FinancialChart {
     this.renderIndicators()
 
     return this
-  }
-
-  // 绘制坐标轴
-  renderAxis() {
-    const { width, height, padding } = this.options
-    const ctx = this.ctx
-
-    // 绘制边框
-    ctx.strokeStyle = '#e0e0e0'
-    ctx.lineWidth = 1
-    ctx.strokeRect(
-      padding.left,
-      padding.top,
-      width - padding.left - padding.right,
-      height - padding.top - padding.bottom
-    )
-
-    // 绘制水平网格线
-    ctx.strokeStyle = '#f0f0f0'
-    ctx.lineWidth = 0.5
-    const ySteps = 5
-    for (let i = 0; i <= ySteps; i++) {
-      const y =
-        padding.top + ((height - padding.top - padding.bottom) * i) / ySteps
-      ctx.beginPath()
-      ctx.moveTo(padding.left, y)
-      ctx.lineTo(width - padding.right, y)
-      ctx.stroke()
-    }
-
-    // 绘制垂直网格线
-    const xSteps = Math.min(10, this.data.length)
-    for (let i = 0; i <= xSteps; i++) {
-      const x =
-        padding.left + ((width - padding.left - padding.right) * i) / xSteps
-      ctx.beginPath()
-      ctx.moveTo(x, padding.top)
-      ctx.lineTo(x, height - padding.bottom)
-      ctx.stroke()
-    }
   }
 
   // 绘制 K 线图

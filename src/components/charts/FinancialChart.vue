@@ -1,16 +1,10 @@
 <template>
   <div class="financial-chart">
     <div class="chart-controls">
-      <button
-        :class="{ active: chartType === 'kline' }"
-        @click="switchChartType('kline')"
-      >
+      <button :class="{ active: chartType === 'kline' }" @click="switchChartType('kline')">
         {{ $t('chart.kline') }}
       </button>
-      <button
-        :class="{ active: chartType === 'time' }"
-        @click="switchChartType('time')"
-      >
+      <button :class="{ active: chartType === 'time' }" @click="switchChartType('time')">
         {{ $t('chart.time') }}
       </button>
       <button @click="addMA">
@@ -26,17 +20,27 @@
         {{ $t('common.reset') }}
       </button>
     </div>
-    <canvas ref="chartCanvas" width="800" height="400"></canvas>
+    <div class="chart-container">
+      <canvas ref="yAxisCanvas" class="y-axis" width="60" height="360"></canvas>
+      <div class="chart-main">
+        <canvas ref="chartCanvas" class="main-chart" width="800" height="360"></canvas>
+        <canvas ref="xAxisCanvas" class="x-axis" width="800" height="50"></canvas>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { FinancialChart, MovingAverage, MACD, RSI } from '@/charts'
+import { FinancialChart, MovingAverage, MACD, RSI, XAxis, YAxis } from '@/charts'
 
 const chartCanvas = ref(null)
+const xAxisCanvas = ref(null)
+const yAxisCanvas = ref(null)
 const chartType = ref('kline')
 let chart = null
+let xAxis = null
+let yAxis = null
 
 // 模拟数据
 const generateMockData = (days = 30) => {
@@ -68,41 +72,73 @@ const generateMockData = (days = 30) => {
 
 const mockData = generateMockData()
 
+// 渲染所有组件
+const renderAll = () => {
+  if (chart) chart.render()
+  if (xAxis) xAxis.render()
+  if (yAxis) yAxis.render()
+}
+
 onMounted(() => {
-  // 初始化图表
-  chart = new FinancialChart(chartCanvas.value)
-    .setData(mockData)
-    .setChartType(chartType.value)
-    .render()
+  if (chartCanvas.value && xAxisCanvas.value && yAxisCanvas.value) {
+    // 初始化图表
+    chart = new FinancialChart(chartCanvas.value, {
+      padding: {
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10,
+      }
+    })
+    
+    // 初始化 X 轴
+    xAxis = new XAxis(xAxisCanvas.value)
+    
+    // 初始化 Y 轴
+    yAxis = new YAxis(yAxisCanvas.value)
+    
+    // 设置数据
+    chart.setData(mockData).setChartType(chartType.value)
+    xAxis.setData(mockData)
+    yAxis.setData(mockData)
+    
+    // 初始渲染
+    renderAll()
+  }
 })
 
 // 切换图表类型
 const switchChartType = (type) => {
   chartType.value = type
-  chart.setChartType(type).render()
+  chart.setChartType(type)
+  renderAll()
 }
 
 // 添加均线
 const addMA = () => {
   const ma = new MovingAverage(20, '#FF0000')
-  chart.addIndicator(ma).render()
+  chart.addIndicator(ma)
+  renderAll()
 }
 
 // 添加 MACD
 const addMACD = () => {
   const macd = new MACD()
-  chart.addIndicator(macd).render()
+  chart.addIndicator(macd)
+  renderAll()
 }
 
 // 添加 RSI
 const addRSI = () => {
   const rsi = new RSI()
-  chart.addIndicator(rsi).render()
+  chart.addIndicator(rsi)
+  renderAll()
 }
 
 // 清除指标
 const clearIndicators = () => {
-  chart.clearIndicators().render()
+  chart.clearIndicators()
+  renderAll()
 }
 </script>
 
@@ -130,8 +166,7 @@ const clearIndicators = () => {
   border-radius: 4px;
   background-color: #f5f5f5;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s;
 }
 
 .chart-controls button:hover {
@@ -144,10 +179,33 @@ const clearIndicators = () => {
   border-color: #3498db;
 }
 
-canvas {
+.chart-container {
+  display: flex;
+  gap: 0;
+}
+
+.y-axis {
+  border-right: none;
+  display: block;
+  height: 360px;
+  width: 60px;
+}
+
+.chart-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.main-chart {
+  display: block;
+  height: 360px;
   width: 100%;
-  height: auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+}
+
+.x-axis {
+  display: block;
+  height: 50px;
+  width: 100%;
 }
 </style>
